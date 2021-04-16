@@ -1,7 +1,7 @@
 import { Message, Client, Collection, StreamDispatcher } from "discord.js";
 import * as fs from 'fs';
 
-export let queue: { url: string, dispatcher?: StreamDispatcher }[] = [];
+export let queue: { title: string, url: string, dispatcher?: StreamDispatcher }[] = [];
 
 // dotenv
 let fileExt = '.js';

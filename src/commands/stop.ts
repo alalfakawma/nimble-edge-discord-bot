@@ -6,6 +6,6 @@ module.exports = {
     callback: (msg: Message, _args: Array<string>) => {
         queue[0].dispatcher?.destroy();
         queue[0].dispatcher = undefined;
-        msg.channel.send("Stop meks!!");
+        msg.channel.send("🛑 Stop meks!!");
     },
 };
