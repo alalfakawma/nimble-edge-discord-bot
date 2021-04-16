@@ -1,8 +1,13 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 
+// dotenv
+require('dotenv').config();
+
+// Command keyword
 const KEYWORD = '-neb';
 
+// Commands list
 const COMMANDS = [
     {
         command: 'lam rawh le',
@@ -13,7 +18,7 @@ const COMMANDS = [
 ];
 
 client.on('ready', () => {
-    console.log(`Logged in as ${client.user.tag}!`);
+    console.log(`Nimble Edge Bot is now online!`);
 });
 
 client.on('message', msg => {
@@ -28,4 +33,4 @@ client.on('message', msg => {
     }
 });
 
-client.login('ODMyMzQwMzkwNTU5NzQ0MDMx.YHiXZQ.Tt5Fe-diZ50-_V0KTwMlbaiZANk');
+client.login(process.env.TOKEN);
