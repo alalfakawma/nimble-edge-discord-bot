@@ -2,7 +2,9 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 
 // dotenv
-require('dotenv').config();
+if (process.env.NODE_ENV !== 'production') {
+    require('dotenv').config();
+}
 
 // Command keyword
 const KEYWORD = '-neb';
