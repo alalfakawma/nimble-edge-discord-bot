@@ -2,8 +2,11 @@ import { Message, Client, Collection } from "discord.js";
 import * as fs from 'fs';
 
 // dotenv
+let fileExt = '.ts';
+
 if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config();
+    fileExt = '.js';
 }
 
 const client = new Client();
@@ -12,9 +15,9 @@ const client = new Client();
 const KEYWORD: string = '-';
 
 const COMMANDS: Collection<string, { name: string, callback: CallableFunction }> = new Collection();
-const COMMAND_DIR = __dirname + '/commands';
+const COMMAND_DIR = __dirname + '/commands/asd';
 
-const commandFiles = fs.readdirSync(COMMAND_DIR).filter(file => file.endsWith('.ts'));
+const commandFiles = fs.readdirSync(COMMAND_DIR).filter(file => file.endsWith(fileExt));
 
 commandFiles.forEach(file => {
     const command = require(`${COMMAND_DIR}/${file}`);
