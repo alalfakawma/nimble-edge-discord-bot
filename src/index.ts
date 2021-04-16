@@ -2,11 +2,11 @@ import { Message, Client, Collection } from "discord.js";
 import * as fs from 'fs';
 
 // dotenv
-let fileExt = '.ts';
+let fileExt = '.js';
 
 if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config();
-    fileExt = '.js';
+    fileExt = '.ts';
 }
 
 const client = new Client();
