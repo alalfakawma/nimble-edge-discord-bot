@@ -15,7 +15,7 @@ const client = new Client();
 const KEYWORD: string = '-';
 
 const COMMANDS: Collection<string, { name: string, callback: CallableFunction }> = new Collection();
-const COMMAND_DIR = __dirname + '/commands/asd';
+const COMMAND_DIR = __dirname + '/commands';
 
 const commandFiles = fs.readdirSync(COMMAND_DIR).filter(file => file.endsWith(fileExt));
 
