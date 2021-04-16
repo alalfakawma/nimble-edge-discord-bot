@@ -1,5 +1,7 @@
-import { Message, Client, Collection } from "discord.js";
+import { Message, Client, Collection, StreamDispatcher } from "discord.js";
 import * as fs from 'fs';
+
+export let queue: { url: string, dispatcher?: StreamDispatcher }[] = [];
 
 // dotenv
 let fileExt = '.js';
@@ -11,10 +13,9 @@ if (process.env.NODE_ENV !== 'production') {
 
 const client = new Client();
 
-// Command keyword
+// CONSTANTS
 const KEYWORD: string = '-';
-
-const COMMANDS: Collection<string, { name: string, callback: CallableFunction }> = new Collection();
+export const COMMANDS: Collection<string, { name: string, callback: CallableFunction }> = new Collection();
 const COMMAND_DIR = __dirname + '/commands';
 
 const commandFiles = fs.readdirSync(COMMAND_DIR).filter(file => file.endsWith(fileExt));
@@ -30,10 +31,11 @@ client.on('ready', () => {
 });
 
 client.on('message', (msg: Message) => {
-    const command = msg.content.replace(KEYWORD, '').trim();
+    const args = msg.content.substring(KEYWORD.length).split(' ');
+    const command = args.shift();
 
     if (msg.content.startsWith(KEYWORD)) {
-        COMMANDS.get(command)?.callback(msg);
+        if (command) COMMANDS.get(command)?.callback(msg, args);
     }
 });
 

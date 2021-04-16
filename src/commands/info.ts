@@ -2,7 +2,7 @@ import { Message } from 'discord.js';
 
 module.exports = {
     name: 'info',
-    callback: (msg: Message) => {
+    callback: (msg: Message, args: Array<string>) => {
         const guildUsers = msg.guild?.members.cache;
         const client = msg.client;
         guildUsers?.sweep(guildUser => guildUser.displayName === client.user?.username);
