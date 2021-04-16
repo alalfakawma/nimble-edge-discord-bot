@@ -1,5 +1,9 @@
 import { Message, Client, Collection } from "discord.js";
 import * as fs from 'fs';
+import express from 'express';
+import { Express } from 'express';
+
+const app: Express = express();
 
 // dotenv
 if (process.env.NODE_ENV !== 'production') {
@@ -35,3 +39,9 @@ client.on('message', (msg: Message) => {
 });
 
 client.login(process.env.TOKEN);
+
+app.get('/', (_req, res) => {
+    res.send('DISCORD BOT!');
+});
+
+app.listen(process.env.PORT)
