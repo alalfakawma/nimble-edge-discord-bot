@@ -64,8 +64,10 @@ function playYt(connection: VoiceConnection, msg: Message) {
                 playYt(connection, msg);
             });
         } else {
+            if (song.dispatcher.paused) {
+                msg.channel.send("▶ Resume meks!!");
+            }
             song.dispatcher.resume();
-            msg.channel.send("▶ Resume meks!!");
         }
 
         song.dispatcher.setVolume(neb.volume);
