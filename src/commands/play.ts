@@ -1,7 +1,7 @@
 import ytdl from 'ytdl-core';
 import { search } from 'yt-search';
 import { Message, VoiceConnection } from 'discord.js';
-import { queue } from '../index';
+import { queue, volume } from '../index';
 
 module.exports = {
     name: 'play',
@@ -16,7 +16,7 @@ module.exports = {
                 const song: { title: string, url: string } = await new Promise((resolve, _rej) => {
                     search(args.join(' '), (err, res) => {
                         if (err) {
-                            msg.channel.send("🛑 Youtube link a nilo tlat mai! Ti tha leh rawh!");
+                            return msg.channel.send("🛑 Youtube link a nilo tlat mai! Ti tha leh rawh!");
                         }
 
                         resolve({
@@ -52,6 +52,8 @@ function playYt(connection: VoiceConnection, msg: Message) {
         const song = queue[0];
         song.dispatcher = connection.play(ytdl(song.url, { filter: 'audioonly', }));
 
+        song.dispatcher.setVolume(volume);
+
         msg.channel.send(`🎶 **Now Playing:** ${song.title}`);
 
         song.dispatcher.on("finish", () => {
@@ -61,5 +63,7 @@ function playYt(connection: VoiceConnection, msg: Message) {
             // Play the next
             playYt(connection, msg);
         });
+    } else {
+        msg.channel.send("Queue ah hla a awmlo!");
     }
 }

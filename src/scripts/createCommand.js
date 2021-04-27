@@ -1,7 +1,7 @@
 const fs = require('fs');
 
-const stubPath = __dirname + '/stubs/';
-const commandPath = __dirname + '/commands/';
+const stubPath = process.cwd() + '/src/stubs/';
+const commandPath = process.cwd() + '/src/commands/';
 
 fs.readFile(stubPath + 'command.stub', {
     encoding: 'utf8',
