@@ -10,8 +10,8 @@ module.exports = {
 
         if (!voiceChannel) return msg.channel.send('Voice channel ah i awm angai! Mimawl!');
 
-        if (!args[0]) return msg.channel.send("Link chuuu! Mimawl!");
-        else {
+        if (!args[0] && !queue.length) return msg.channel.send("Link chuuu! Mimawl!");
+        else if (args[0]) {
             if (!ytdl.validateURL(args[0])) {
                 const song: { title: string, url: string } = await new Promise((resolve, _rej) => {
                     search(args.join(' '), (err, res) => {
@@ -33,9 +33,9 @@ module.exports = {
                     url: args[0],
                 });
             }
-        }
 
-        if (queue.length > 1) msg.channel.send(`👍 **Added to queue:** ${queue[queue.length - 1].title}`);
+            if (queue.length > 1) msg.channel.send(`👍 **Added to queue:** ${queue[queue.length - 1].title}`);
+        }
 
         if (!msg.member?.voice.connection) {
             msg.member?.voice.channel?.join().then(connection => {
