@@ -69,6 +69,6 @@ function playYt(connection: VoiceConnection, msg: Message) {
         const channel = msg.guild?.me?.voice.channel;
         neb.voiceTimeout = msg.client.setTimeout(channel => {
             channel.leave();
-        }, 5000, channel);
+        }, 10000, channel);
     }
 }
