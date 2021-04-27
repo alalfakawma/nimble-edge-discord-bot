@@ -39,9 +39,7 @@ module.exports = {
 
         if (!msg.member?.voice.connection) {
             msg.member?.voice.channel?.join().then(connection => {
-                if (!queue[0].dispatcher) {
-                    playYt(connection, msg);
-                }
+                playYt(connection, msg);
             });
         }
     },
@@ -67,7 +65,7 @@ function playYt(connection: VoiceConnection, msg: Message) {
             });
         } else {
             song.dispatcher.resume();
-            msg.channel.send("▶ Play meks!!");
+            msg.channel.send("▶ Resume meks!!");
         }
 
         song.dispatcher.setVolume(neb.volume);
