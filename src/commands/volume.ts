@@ -18,7 +18,7 @@ module.exports = {
 
             // If playing, change current song volume
             if (queue.length) {
-                const song = queue[0];
+                const [ song ] = queue;
 
                 if (song.dispatcher) {
                     song.dispatcher?.setVolume(newVolume / 100);

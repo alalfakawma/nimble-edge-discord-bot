@@ -51,20 +51,23 @@ function playYt(connection: VoiceConnection, msg: Message) {
     if (queue.length) {
         if (neb.voiceTimeout) msg.client.clearTimeout(neb.voiceTimeout);
 
-        const song = queue[0];
-        song.dispatcher = connection.play(ytdl(song.url, { filter: 'audioonly', }));
+        const [ song ] = queue;
+
+        if (!song.dispatcher) {
+            song.dispatcher = connection.play(ytdl(song.url, { filter: 'audioonly', }));
+
+            msg.channel.send(`🎶 **Now Playing:** ${song.title}`);
+
+            song.dispatcher.on("finish", () => {
+                // Remove item from queue
+                queue.shift();
+
+                // Play the next
+                playYt(connection, msg);
+            });
+        }
 
         song.dispatcher.setVolume(neb.volume);
-
-        msg.channel.send(`🎶 **Now Playing:** ${song.title}`);
-
-        song.dispatcher.on("finish", () => {
-            // Remove item from queue
-            queue.shift();
-
-            // Play the next
-            playYt(connection, msg);
-        });
     } else {
         const channel = msg.guild?.me?.voice.channel;
         neb.voiceTimeout = msg.client.setTimeout(channel => {
