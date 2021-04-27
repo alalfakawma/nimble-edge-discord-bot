@@ -13,11 +13,10 @@ module.exports = {
         if (!args[0]) return msg.channel.send("Link chuuu! Mimawl!");
         else {
             if (!ytdl.validateURL(args[0])) {
-                const song: { title: string, url: string } = await new Promise((resolve, rej) => {
+                const song: { title: string, url: string } = await new Promise((resolve, _rej) => {
                     search(args.join(' '), (err, res) => {
                         if (err) {
-                            console.error(err);
-                            rej(err);
+                            msg.channel.send("🛑 Youtube link a nilo tlat mai! Ti tha leh rawh!");
                         }
 
                         resolve({
