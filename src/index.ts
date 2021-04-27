@@ -32,12 +32,6 @@ commandFiles.forEach(file => {
 
 client.on('ready', () => {
     console.log(`Nimble Edge Bot is now online!`);
-
-    client.user?.setPresence({
-        activity: {
-            name: '❔ type -help',
-        },
-    });
 });
 
 client.on('message', (msg: Message) => {
