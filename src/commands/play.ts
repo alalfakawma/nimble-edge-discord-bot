@@ -63,10 +63,8 @@ function playYt(connection: VoiceConnection, msg: Message) {
                 // Play the next
                 playYt(connection, msg);
             });
-        } else {
-            if (song.dispatcher.paused) {
-                msg.channel.send("▶ Resume meks!!");
-            }
+        } else if (song.dispatcher.paused) {
+            msg.channel.send("▶ Resume meks!!");
             song.dispatcher.resume();
         }
 
