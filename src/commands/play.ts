@@ -66,8 +66,9 @@ function playYt(connection: VoiceConnection, msg: Message) {
             playYt(connection, msg);
         });
     } else {
-        neb.voiceTimeout = msg.client.setTimeout(() => {
-            msg.member?.voice.channel?.leave();
-        }, 5000);
+        const channel = msg.member?.voice.channel;
+        neb.voiceTimeout = msg.client.setTimeout(channel => {
+            channel.leave();
+        }, 5000, channel);
     }
 }
