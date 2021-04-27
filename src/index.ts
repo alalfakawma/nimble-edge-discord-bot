@@ -2,11 +2,10 @@ import { Message, Client, Collection, StreamDispatcher } from "discord.js";
 import * as fs from 'fs';
 
 export let queue: { title: string, url: string, dispatcher?: StreamDispatcher }[] = [];
-export let volume: number = 1;
 
-export function setVolume(vol: number): void {
-    volume = vol;
-}
+export let neb: { volume: number, voiceTimeout?: NodeJS.Timeout } = {
+    volume: 1,
+};
 
 // dotenv
 let fileExt = '.js';

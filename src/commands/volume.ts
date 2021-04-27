@@ -1,11 +1,11 @@
 import { Message } from 'discord.js';
-import { queue, volume, setVolume } from '../index';
+import { queue, neb } from '../index';
 
 module.exports = {
     name: 'volume',
     callback: (msg: Message, args: Array<string>) => {
         if (!args[0]) {
-            msg.channel.send(`🔉 Volume: ${(volume * 100).toFixed()}`);
+            msg.channel.send(`🔉 Volume: ${(neb.volume * 100).toFixed()}`);
         } else {
             const newVolume = parseInt(args[0]);
 
@@ -14,7 +14,7 @@ module.exports = {
             }
 
             // Set new volume
-            setVolume(newVolume / 100);
+            neb.volume = newVolume / 100;
 
             // If playing, change current song volume
             if (queue.length) {

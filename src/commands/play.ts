@@ -1,7 +1,7 @@
 import ytdl from 'ytdl-core';
 import { search } from 'yt-search';
 import { Message, VoiceConnection } from 'discord.js';
-import { queue, volume } from '../index';
+import { queue, neb } from '../index';
 
 module.exports = {
     name: 'play',
@@ -49,10 +49,12 @@ module.exports = {
 
 function playYt(connection: VoiceConnection, msg: Message) {
     if (queue.length) {
+        if (neb.voiceTimeout) msg.client.clearTimeout(neb.voiceTimeout);
+
         const song = queue[0];
         song.dispatcher = connection.play(ytdl(song.url, { filter: 'audioonly', }));
 
-        song.dispatcher.setVolume(volume);
+        song.dispatcher.setVolume(neb.volume);
 
         msg.channel.send(`🎶 **Now Playing:** ${song.title}`);
 
@@ -64,6 +66,8 @@ function playYt(connection: VoiceConnection, msg: Message) {
             playYt(connection, msg);
         });
     } else {
-        msg.channel.send("Queue ah hla a awmlo!");
+        neb.voiceTimeout = msg.client.setTimeout(() => {
+            msg.member?.voice.channel?.leave();
+        }, 5000);
     }
 }
