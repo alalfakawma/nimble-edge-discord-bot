@@ -8,6 +8,7 @@ module.exports = {
 
         if (song && song.dispatcher) {
             song.dispatcher.pause();
+            msg.channel.send("⏸ Pause meks!");
         }
     },
 };

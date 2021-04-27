@@ -65,6 +65,9 @@ function playYt(connection: VoiceConnection, msg: Message) {
                 // Play the next
                 playYt(connection, msg);
             });
+        } else {
+            song.dispatcher.resume();
+            msg.channel.send("▶ Play meks!!");
         }
 
         song.dispatcher.setVolume(neb.volume);
