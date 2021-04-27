@@ -5,7 +5,7 @@ module.exports = {
     name: 'volume',
     callback: (msg: Message, args: Array<string>) => {
         if (!args[0]) {
-            msg.channel.send(`🔉 Volume: ${volume}`);
+            msg.channel.send(`🔉 Volume: ${(volume * 100).toFixed()}`);
         } else {
             const newVolume = parseInt(args[0]);
 
