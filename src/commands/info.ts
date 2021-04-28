@@ -9,9 +9,9 @@ module.exports = {
 
         const onlineMembers = guildUsers?.map(guildUser => guildUser.displayName).join(', ');
         const message = `
-            **Source**: https://github.com/alalfakawma/nimble-edge-discord-bot\n
-            **Hosted On**: https://heroku.com\n
-            **Website**: https://nimble-edge.com\n
+            **Source**: https://github.com/alalfakawma/nimble-edge-discord-bot
+            **Hosted On**: https://heroku.com
+            **Website**: https://nimble-edge.com
             **Online Members**: ${onlineMembers}
         `;
         msg.channel.send(message);

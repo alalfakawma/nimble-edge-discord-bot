@@ -5,7 +5,7 @@ module.exports = {
     callback: (msg: Message, args: Array<string>) => {
         msg.channel.send(
             `
-                > ${args.join(' ')}\n
+                > ${args.join(' ')}
                 > Sawited by: ${ msg.member?.user.username }.
             `
         );
