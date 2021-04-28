@@ -45,7 +45,7 @@ module.exports = {
     },
 };
 
-export function playYt(connection: VoiceConnection, msg: Message) {
+function playYt(connection: VoiceConnection, msg: Message) {
     if (queue.length) {
         if (neb.voiceTimeout) msg.client.clearTimeout(neb.voiceTimeout);
 
