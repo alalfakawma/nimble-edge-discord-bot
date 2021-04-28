@@ -4,7 +4,11 @@ import { queue } from '../index';
 module.exports = {
     name: 'queue',
     callback: (msg: Message, _args: Array<string>) => {
-        const queueList = queue.map((item, index) => `**${(index + 1)}.** ${item.title}`);
+        const queueList = queue.map(
+            (item, index) => `
+                **${(index + 1)}.** ${item.title} ${ (item.dispatcher) ? '(Playing)' : '' }
+            `
+        );
 
         if (queueList.length) {
             msg.channel.send(queueList.join('\n'));
