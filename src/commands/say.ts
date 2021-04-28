@@ -4,10 +4,7 @@ module.exports = {
     name: 'say',
     callback: (msg: Message, args: Array<string>) => {
         msg.channel.send(
-            `
-                > ${args.join(' ')}
-                > Sawited by: ${ msg.member?.user.username }.
-            `
+            `> ${args.join(' ')}\n> Sawited by: ${ msg.member?.user.username }.`
         );
     },
 };

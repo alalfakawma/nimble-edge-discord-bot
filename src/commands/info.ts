@@ -8,12 +8,7 @@ module.exports = {
         guildUsers?.sweep(guildUser => guildUser.displayName === client.user?.username);
 
         const onlineMembers = guildUsers?.map(guildUser => guildUser.displayName).join(', ');
-        const message = `
-            **Source**: https://github.com/alalfakawma/nimble-edge-discord-bot
-            **Hosted On**: https://heroku.com
-            **Website**: https://nimble-edge.com
-            **Online Members**: ${onlineMembers}
-        `;
+        const message = `**Source**: <https://github.com/alalfakawma/nimble-edge-discord-bot>\n**Hosted On**: <https://heroku.com>\n**Website**: <https://nimble-edge.com>\n**Online Members**: ${onlineMembers}`;
         msg.channel.send(message);
     },
 };
