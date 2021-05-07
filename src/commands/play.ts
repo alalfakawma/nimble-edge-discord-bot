@@ -2,6 +2,7 @@ import ytdl from 'ytdl-core';
 import { search } from 'yt-search';
 import { Message, VoiceConnection } from 'discord.js';
 import { queue, neb } from '../index';
+import ytpl from 'ytpl';
 
 module.exports = {
     name: 'play',
@@ -14,6 +15,7 @@ module.exports = {
 
         if (!args[0] && !queue.length) return msg.channel.send("Link chuuu! Mimawl!");
         else if (args[0]) {
+            // Argument is not a link
             if (!isURL.test(args[0])) {
                 const song: { title: string, url: string } = await new Promise((resolve, _rej) => {
                     search(args.join(' '), (err, res) => {
@@ -29,7 +31,17 @@ module.exports = {
                 });
                 queue.push(song);
             } else {
-                if (ytdl.validateURL(args[0])) {
+                // If the argument is a link
+                // First validate if the link is a playlist link or not
+                if (ytpl.validateID(args[0])) {
+                    const playlistSongs = await ytpl(args[0]);
+                    playlistSongs.items.forEach(item => {
+                        queue.push({
+                            title: item.title,
+                            url: item.shortUrl,
+                        });
+                    });
+                } else if (ytdl.validateURL(args[0])) {
                     const songInfo = (await ytdl.getInfo(args[0])).videoDetails;
                     queue.push({
                         title: songInfo.title,
