@@ -10,7 +10,8 @@ module.exports = {
 
         if (queueList.length) {
             if (queueList.length > 50) {
-                msg.channel.send(`**First 50 songs..**\n${queueList.join('\n')}`);
+                const first50 = queueList.slice(0, 50);
+                msg.channel.send(`**First 50 songs..**\n${first50.join('\n')}`);
             } else {
                 msg.channel.send(queueList.join('\n'));
             }
