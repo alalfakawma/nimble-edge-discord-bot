@@ -9,7 +9,11 @@ module.exports = {
         );
 
         if (queueList.length) {
-            msg.channel.send(queueList.join('\n'));
+            if (queueList.length > 50) {
+                msg.channel.send(`**First 50 songs..**\n${queueList.join('\n')}`);
+            } else {
+                msg.channel.send(queueList.join('\n'));
+            }
         } else {
             msg.channel.send("Queue ah hla a awmlo!");
         }
