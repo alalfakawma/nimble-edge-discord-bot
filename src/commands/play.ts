@@ -30,6 +30,7 @@ module.exports = {
                     });
                 });
                 queue.push(song);
+                if (queue.length > 1) msg.channel.send(`👍 **Added to queue:** ${song.title}`);
             } else {
                 // If the argument is a link
                 // First validate if the link is a playlist link or not
@@ -41,18 +42,18 @@ module.exports = {
                             url: item.shortUrl,
                         });
                     });
+                    msg.channel.send('👍 Add zo vek e!!');
                 } else if (ytdl.validateURL(args[0])) {
                     const songInfo = (await ytdl.getInfo(args[0])).videoDetails;
                     queue.push({
                         title: songInfo.title,
                         url: args[0],
                     });
+                    if (queue.length > 1) msg.channel.send(`👍 **Added to queue:** ${queue[queue.length - 1].title}`);
                 } else {
                     return msg.channel.send("🛑 Youtube link a nilo tlat mai, ti tha leh rawh!");
                 }
             }
-
-            if (queue.length > 1) msg.channel.send(`👍 **Added to queue:** ${queue[queue.length - 1].title}`);
         }
 
         if (!msg.member?.voice.connection) {
