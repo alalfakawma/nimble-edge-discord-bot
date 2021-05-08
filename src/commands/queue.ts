@@ -22,7 +22,7 @@ module.exports = {
                 embed.setFooter(`${restOfSongs} more songs..`);
                 msg.channel.send(embed);
             } else {
-                embed.setDescription(null);
+                embed.setDescription('');
                 embed.addField('----', queueList.join('\n'));
                 msg.channel.send(embed);
             }
