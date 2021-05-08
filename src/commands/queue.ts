@@ -17,7 +17,9 @@ module.exports = {
         if (queueList.length) {
             if (queueList.length > 25) {
                 const first25 = queueList.slice(0, 25);
+                const restOfSongs = queueList.length - 25;
                 embed.addField('----', first25.join('\n'));
+                embed.setFooter(`${restOfSongs} more songs..`);
                 msg.channel.send(embed);
             } else {
                 embed.addField('----', queueList.join('\n'));
