@@ -1,7 +1,7 @@
 import ytdl from 'ytdl-core';
 import { search } from 'yt-search';
 import { Message, VoiceConnection } from 'discord.js';
-import { queue, neb, embedMessage } from '../index';
+import { queue, neb } from '../index';
 import ytpl from 'ytpl';
 
 module.exports = {
@@ -20,7 +20,7 @@ module.exports = {
                 const song: { title: string, url: string } = await new Promise((resolve, _rej) => {
                     search(args.join(' '), (err, res) => {
                         if (err) {
-                            return msg.channel.send(embedMessage.setDescription('🛑 Diklo a awm meks, ti tha leh chhin rawh!'));
+                            return msg.channel.send("🛑 Diklo a awm meks, ti tha leh chhin rawh!");
                         }
 
                         resolve({
@@ -30,7 +30,7 @@ module.exports = {
                     });
                 });
                 queue.push(song);
-                if (queue.length > 1) msg.channel.send(embedMessage.setDescription(`👍 **Added to queue:** ${song.title}`));
+                if (queue.length > 1) msg.channel.send(`👍 **Added to queue:** ${song.title}`);
             } else {
                 // If the argument is a link
                 // First validate if the link is a playlist link or not
@@ -49,7 +49,7 @@ module.exports = {
                         title: songInfo.title,
                         url: args[0],
                     });
-                    if (queue.length > 1) msg.channel.send(embedMessage.setDescription(`👍 **Added to queue:** ${queue[queue.length - 1].title}`));
+                    if (queue.length > 1) msg.channel.send(`👍 **Added to queue:** ${queue[queue.length - 1].title}`);
                 } else {
                     return msg.channel.send("🛑 Youtube link a nilo tlat mai, ti tha leh rawh!");
                 }
@@ -73,7 +73,7 @@ function playYt(connection: VoiceConnection, msg: Message) {
         if (!song.dispatcher) {
             song.dispatcher = connection.play(ytdl(song.url, { filter: 'audioonly', }));
 
-            msg.channel.send(embedMessage.setDescription(`🎶 **Now Playing:** ${song.title}`));
+            msg.channel.send(`🎶 **Now Playing:** ${song.title}`);
 
             song.dispatcher.on("finish", () => {
                 // Remove item from queue
