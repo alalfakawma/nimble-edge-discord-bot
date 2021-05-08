@@ -23,6 +23,8 @@ module.exports = {
                         const last25 = queueList.slice(-25);
                         embed.addField('----', last25.join('\n'));
                         msg.channel.send(embed);
+                    } else {
+                        msg.channel.send('**Usage:** -queue [end]');
                     }
                 } else {
                     const first25 = queueList.slice(0, 25);
