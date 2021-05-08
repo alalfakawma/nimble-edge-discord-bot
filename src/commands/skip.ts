@@ -1,5 +1,6 @@
 import { Message } from 'discord.js';
 import { queue } from '../index';
+import { playYt } from '../util/playYt';
 
 module.exports = {
     name: 'skip',
@@ -22,6 +23,13 @@ module.exports = {
                 }
                 // Skip the tracks
                 queue.splice(0, skipAmount);
+
+                // Start playing from the skip
+                if (msg.member) {
+                    if (msg.member.voice.connection) {
+                        playYt(msg.member.voice.connection, msg);
+                    }
+                }
             }
         } else {
             song.dispatcher?.end();
