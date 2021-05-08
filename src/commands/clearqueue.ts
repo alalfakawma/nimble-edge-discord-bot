@@ -9,6 +9,11 @@ module.exports = {
             song.dispatcher.destroy();
         }
         queue.length = 0;
+
+        // Leave channel
+        const channel = msg.guild?.me?.voice.channel;
+        channel?.leave();
+
         msg.channel.send('🚮 Queue cleared!');
     },
 };
