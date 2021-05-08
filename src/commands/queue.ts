@@ -12,7 +12,7 @@ module.exports = {
         let embed = new MessageEmbed()
             .setColor('#FBAB81')
             .setTitle('Song Queue:')
-            .setDescription('Showing first 25 songs.')
+            .setDescription('Showing first 25 songs..')
 
         if (queueList.length) {
             if (queueList.length > 25) {
@@ -21,7 +21,8 @@ module.exports = {
 
                     if (command === 'end') {
                         const last25 = queueList.slice(-25);
-                        embed.addField('----', last25.join('\n'));
+                        embed.setDescription('Showing last 25 songs..')
+                            .addField('----', last25.join('\n'));
                         msg.channel.send(embed);
                     } else {
                         msg.channel.send('**Usage:** -queue [end]');
