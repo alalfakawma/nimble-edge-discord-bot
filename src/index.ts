@@ -1,4 +1,4 @@
-import { Message, Client, Collection, StreamDispatcher } from "discord.js";
+import { Message, Client, Collection, StreamDispatcher, MessageEmbed } from "discord.js";
 import * as fs from 'fs';
 
 export let queue: { title: string, url: string, dispatcher?: StreamDispatcher }[] = [];
@@ -6,6 +6,9 @@ export let queue: { title: string, url: string, dispatcher?: StreamDispatcher }[
 export let neb: { volume: number, voiceTimeout?: NodeJS.Timeout } = {
     volume: 1,
 };
+
+export let embedMessage = new MessageEmbed()
+    .setColor('#FBAB81');
 
 // dotenv
 let fileExt = '.js';

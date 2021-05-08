@@ -1,6 +1,5 @@
 import { Message } from 'discord.js';
-import { queue } from '../index';
-import { MessageEmbed } from 'discord.js';
+import { queue, embedMessage } from '../index';
 
 module.exports = {
     name: 'queue',
@@ -9,8 +8,7 @@ module.exports = {
             (item, index) => `**${(index + 1)}.** ${item.title} ${ (item.dispatcher && !item.dispatcher.paused) ? '** - (Playing)**' : '' }`
         );
 
-        const embed = new MessageEmbed()
-            .setColor('#FBAB81')
+        let embed = embedMessage
             .setTitle('Song Queue:')
             .setDescription('Showing first 25 songs.')
 
@@ -26,7 +24,7 @@ module.exports = {
                 msg.channel.send(embed);
             }
         } else {
-            msg.channel.send("🤷 Queue ah hla a awmlo!");
+            msg.channel.send(embedMessage.setDescription("🤷 Queue ah hla a awmlo!"));
         }
     },
 };
