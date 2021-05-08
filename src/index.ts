@@ -3,8 +3,9 @@ import * as fs from 'fs';
 
 export let queue: { title: string, url: string, dispatcher?: StreamDispatcher }[] = [];
 
-export let neb: { volume: number, voiceTimeout?: NodeJS.Timeout } = {
+export let neb: { volume: number, color: string, voiceTimeout?: NodeJS.Timeout } = {
     volume: 1,
+    color: '#FBAB81',
 };
 
 // dotenv

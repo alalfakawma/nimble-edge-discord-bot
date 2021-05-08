@@ -9,7 +9,7 @@ module.exports = {
             (item, index) => `**${(index + 1)}.** ${item.title} ${ (item.dispatcher && !item.dispatcher.paused) ? '** - (Playing)**' : '' }`
         );
 
-        const embed = new MessageEmbed()
+        let embed = new MessageEmbed()
             .setColor('#FBAB81')
             .setTitle('Song Queue:')
             .setDescription('Showing first 25 songs.')
@@ -22,11 +22,15 @@ module.exports = {
                 embed.setFooter(`${restOfSongs} more songs..`);
                 msg.channel.send(embed);
             } else {
+                embed.setDescription(null);
                 embed.addField('----', queueList.join('\n'));
                 msg.channel.send(embed);
             }
         } else {
-            msg.channel.send("🤷 Queue ah hla a awmlo!");
+            const embed = new MessageEmbed()
+                .setColor('#FBAB81')
+                .setDescription('🤷 Queue ah hla a awmlo!');
+            msg.channel.send(embed);
         }
     },
 };

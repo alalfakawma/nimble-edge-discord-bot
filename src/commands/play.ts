@@ -1,13 +1,17 @@
 import ytdl from 'ytdl-core';
 import { search } from 'yt-search';
-import { Message, VoiceConnection } from 'discord.js';
+import { Message, VoiceConnection, MessageEmbed } from 'discord.js';
 import { queue, neb } from '../index';
 import ytpl from 'ytpl';
+import { playYt } from '../util/playYt';
 
 module.exports = {
     name: 'play',
     callback: async (msg: Message, args: Array<string>) => {
         const voiceChannel = msg.member?.voice.channel;
+
+        const embed = new MessageEmbed()
+            .setColor(neb.color);
 
         if (!voiceChannel) return msg.channel.send('Voice channel ah i awm angai! Mimawl!');
 
@@ -30,7 +34,7 @@ module.exports = {
                     });
                 });
                 queue.push(song);
-                if (queue.length > 1) msg.channel.send(`👍 **Added to queue:** ${song.title}`);
+                if (queue.length > 1) msg.channel.send(embed.setDescription(`👍 **Added to queue:** ${song.title}`));
             } else {
                 // If the argument is a link
                 // First validate if the link is a playlist link or not
@@ -49,7 +53,7 @@ module.exports = {
                         title: songInfo.title,
                         url: args[0],
                     });
-                    if (queue.length > 1) msg.channel.send(`👍 **Added to queue:** ${queue[queue.length - 1].title}`);
+                    if (queue.length > 1) msg.channel.send(embed.setDescription(`👍 **Added to queue:** ${queue[queue.length - 1].title}`));
                 } else {
                     return msg.channel.send("🛑 Youtube link a nilo tlat mai, ti tha leh rawh!");
                 }
@@ -63,35 +67,3 @@ module.exports = {
         }
     },
 };
-
-function playYt(connection: VoiceConnection, msg: Message) {
-    if (queue.length) {
-        if (neb.voiceTimeout) msg.client.clearTimeout(neb.voiceTimeout);
-
-        const [ song ] = queue;
-
-        if (!song.dispatcher) {
-            song.dispatcher = connection.play(ytdl(song.url, { filter: 'audioonly', }));
-
-            msg.channel.send(`🎶 **Now Playing:** ${song.title}`);
-
-            song.dispatcher.on("finish", () => {
-                // Remove item from queue
-                queue.shift();
-
-                // Play the next
-                playYt(connection, msg);
-            });
-        } else if (song.dispatcher.paused) {
-            msg.channel.send("▶ Resume meks!!");
-            song.dispatcher.resume();
-        }
-
-        song.dispatcher.setVolume(neb.volume);
-    } else {
-        const channel = msg.guild?.me?.voice.channel;
-        neb.voiceTimeout = msg.client.setTimeout(channel => {
-            channel.leave();
-        }, 10000, channel);
-    }
-}
