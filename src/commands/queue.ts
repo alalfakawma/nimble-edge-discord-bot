@@ -1,7 +1,6 @@
 import { Message } from 'discord.js';
 import { queue } from '../index';
 import { MessageEmbed } from 'discord.js';
-import { title } from 'node:process';
 
 module.exports = {
     name: 'queue',
