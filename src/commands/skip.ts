@@ -1,5 +1,5 @@
 import { Message } from 'discord.js';
-import { queue } from '../index';
+import { queue, neb } from '../index';
 import { playYt } from '../util/playYt';
 
 module.exports = {
@@ -25,11 +25,7 @@ module.exports = {
                 queue.splice(0, skipAmount);
 
                 // Start playing from the skip
-                if (msg.member) {
-                    if (msg.member.voice.connection) {
-                        playYt(msg.member.voice.connection, msg);
-                    }
-                }
+                if (neb.voiceConnection) playYt(neb.voiceConnection, msg);
             }
         } else {
             song.dispatcher?.end();

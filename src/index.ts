@@ -1,9 +1,9 @@
-import { Message, Client, Collection, StreamDispatcher } from "discord.js";
+import { Message, Client, Collection, StreamDispatcher, VoiceConnection } from "discord.js";
 import * as fs from 'fs';
 
 export let queue: { title: string, url: string, dispatcher?: StreamDispatcher }[] = [];
 
-export let neb: { volume: number, color: string, voiceTimeout?: NodeJS.Timeout } = {
+export let neb: { volume: number, color: string, voiceConnection?: VoiceConnection, voiceTimeout?: NodeJS.Timeout } = {
     volume: 1,
     color: '#FBAB81',
 };

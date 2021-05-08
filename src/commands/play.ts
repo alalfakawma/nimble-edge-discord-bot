@@ -1,6 +1,6 @@
 import ytdl from 'ytdl-core';
 import { search } from 'yt-search';
-import { Message, VoiceConnection, MessageEmbed } from 'discord.js';
+import { Message, MessageEmbed } from 'discord.js';
 import { queue, neb } from '../index';
 import ytpl from 'ytpl';
 import { playYt } from '../util/playYt';
@@ -62,6 +62,7 @@ module.exports = {
 
         if (!msg.member?.voice.connection) {
             msg.member?.voice.channel?.join().then(connection => {
+                neb.voiceConnection = connection;
                 playYt(connection, msg);
             });
         }
