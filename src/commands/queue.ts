@@ -4,7 +4,7 @@ import { MessageEmbed } from 'discord.js';
 
 module.exports = {
     name: 'queue',
-    callback: (msg: Message, _args: Array<string>) => {
+    callback: (msg: Message, args: Array<string>) => {
         const queueList = queue.map(
             (item, index) => `**${(index + 1)}.** ${item.title} ${ (item.dispatcher && !item.dispatcher.paused) ? '** - (Playing)**' : '' }`
         );
@@ -16,11 +16,21 @@ module.exports = {
 
         if (queueList.length) {
             if (queueList.length > 25) {
-                const first25 = queueList.slice(0, 25);
-                const restOfSongs = queueList.length - 25;
-                embed.addField('----', first25.join('\n'));
-                embed.setFooter(`${restOfSongs} more songs..`);
-                msg.channel.send(embed);
+                if (args.length) {
+                    const [ command ] = args;
+
+                    if (command === 'end') {
+                        const last25 = queueList.slice(-25);
+                        embed.addField('----', last25.join('\n'));
+                        msg.channel.send(embed);
+                    }
+                } else {
+                    const first25 = queueList.slice(0, 25);
+                    const restOfSongs = queueList.length - 25;
+                    embed.addField('----', first25.join('\n'))
+                        .setFooter(`${restOfSongs} more songs..`);
+                    msg.channel.send(embed);
+                }
             } else {
                 embed.setDescription('');
                 embed.addField('----', queueList.join('\n'));
