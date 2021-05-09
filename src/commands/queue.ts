@@ -6,7 +6,7 @@ module.exports = {
     name: 'queue',
     callback: (msg: Message, args: Array<string>) => {
         const queueList = queue.map(
-            (item, index) => `**${(index + 1)}.** ${item.title} ${ (item.dispatcher && !item.dispatcher.paused) ? '** - (Playing)**' : '' }`
+            (item, index) => `**${(index + 1)}.** ${item.title.replace('**', '##')} ${ (item.dispatcher && !item.dispatcher.paused) ? '** - (Playing)**' : '' }`
         );
 
         let embed = new MessageEmbed()
