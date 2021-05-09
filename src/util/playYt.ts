@@ -18,7 +18,7 @@ export const playYt = (connection: VoiceConnection, msg: Message) => {
             msg.channel.send(embed);
 
             song.dispatcher.on("finish", () => {
-                // Remove item from queue
+                // Remove item from queue if it is not looping
                 if (!neb.loop) {
                     queue.shift();
                 }
@@ -29,6 +29,8 @@ export const playYt = (connection: VoiceConnection, msg: Message) => {
         } else if (song.dispatcher.paused) {
             msg.channel.send("▶ Resume meks!!");
             song.dispatcher.resume();
+        } else if (neb.loop) {
+            playYt(connection, msg);
         }
 
         song.dispatcher.setVolume(neb.volume);
