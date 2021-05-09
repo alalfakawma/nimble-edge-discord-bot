@@ -3,9 +3,18 @@ import * as fs from 'fs';
 
 export let queue: { title: string, url: string, dispatcher?: StreamDispatcher }[] = [];
 
-export let neb: { volume: number, color: string, voiceConnection?: VoiceConnection, voiceTimeout?: NodeJS.Timeout } = {
+type Config = {
+    volume: number,
+    color: string,
+    loop: boolean,
+    voiceConnection?: VoiceConnection,
+    voiceTimeout?: NodeJS.Timeout,
+}
+
+export let neb: Config = {
     volume: 1,
     color: '#FBAB81',
+    loop: false,
 };
 
 // dotenv

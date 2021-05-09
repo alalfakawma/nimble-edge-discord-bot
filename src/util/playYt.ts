@@ -19,7 +19,9 @@ export const playYt = (connection: VoiceConnection, msg: Message) => {
 
             song.dispatcher.on("finish", () => {
                 // Remove item from queue
-                queue.shift();
+                if (!neb.loop) {
+                    queue.shift();
+                }
 
                 // Play the next
                 playYt(connection, msg);
