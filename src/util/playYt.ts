@@ -30,7 +30,7 @@ export const playYt = (connection: VoiceConnection, msg: Message) => {
             msg.channel.send("▶ Resume meks!!");
             song.dispatcher.resume();
         } else if (neb.loop) {
-            playYt(connection, msg);
+            song.dispatcher = connection.play(ytdl(song.url, { filter: 'audioonly', }))
         }
 
         song.dispatcher.setVolume(neb.volume);
