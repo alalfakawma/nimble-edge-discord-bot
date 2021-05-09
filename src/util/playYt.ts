@@ -31,6 +31,14 @@ export const playYt = (connection: VoiceConnection, msg: Message) => {
             song.dispatcher.resume();
         } else if (neb.loop) {
             song.dispatcher = connection.play(ytdl(song.url, { filter: 'audioonly', }))
+            song.dispatcher.on('finish', () => {
+                if (!neb.loop) {
+                    queue.shift();
+                }
+
+                // Play the next
+                playYt(connection, msg);
+            });
         }
 
         song.dispatcher.setVolume(neb.volume);
