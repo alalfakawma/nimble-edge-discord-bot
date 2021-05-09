@@ -61,6 +61,7 @@ module.exports = {
         }
 
         if (!msg.member?.voice.connection) {
+            console.log('asdfasdf');
             msg.member?.voice.channel?.join().then(connection => {
                 neb.voiceConnection = connection;
                 playYt(connection, msg);
