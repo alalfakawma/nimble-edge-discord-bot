@@ -60,16 +60,11 @@ module.exports = {
             }
         }
 
-        // First check if song is already playing
-        const [ song ] = queue;
-
-        if (!song.dispatcher) {
-            if (!msg.member?.voice.connection) {
-                msg.member?.voice.channel?.join().then(connection => {
-                    neb.voiceConnection = connection;
-                    playYt(connection, msg);
-                });
-            }
+        if (!voiceChannel) {
+            msg.member?.voice.channel?.join().then(connection => {
+                neb.voiceConnection = connection;
+                playYt(connection, msg);
+            });
         }
     },
 };
