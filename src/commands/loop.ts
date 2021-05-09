@@ -6,11 +6,16 @@ module.exports = {
     callback: (msg: Message, _args: Array<string>) => {
         const [ song ] = queue;
 
-        if (song) {
-            neb.loop = true;
-            msg.channel.send(`🔄 Looping ${song.title}`);
+        if (neb.loop) {
+            neb.loop = false;
+            msg.channel.send(`❌ Loop off`);
         } else {
-            msg.channel.send('✋ Hla awmloh hi mawle!');
+            if (song) {
+                neb.loop = true;
+                msg.channel.send(`🔄 Looping ${song.title}`);
+            } else {
+                msg.channel.send('✋ Hla awmloh hi mawle!');
+            }
         }
     },
 };
