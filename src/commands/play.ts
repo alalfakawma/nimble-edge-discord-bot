@@ -60,12 +60,16 @@ module.exports = {
             }
         }
 
-        if (!msg.member?.voice.connection) {
-            console.log('asdfasdf');
-            msg.member?.voice.channel?.join().then(connection => {
-                neb.voiceConnection = connection;
-                playYt(connection, msg);
-            });
+        // First check if song is already playing
+        const [ song ] = queue;
+
+        if (!song.dispatcher) {
+            if (!msg.member?.voice.connection) {
+                msg.member?.voice.channel?.join().then(connection => {
+                    neb.voiceConnection = connection;
+                    playYt(connection, msg);
+                });
+            }
         }
     },
 };
