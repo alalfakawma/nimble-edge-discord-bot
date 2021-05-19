@@ -21,8 +21,8 @@ module.exports = {
         else if (args[0]) {
             // Argument is not a link
             if (!isURL.test(args[0])) {
-                if (isNaN(parseFloat(args[0])) &&  searchResults.length) {
-                    const index = (parseFloat(args[0]) + 1); // Remember 0 index
+                if (searchResults.length && !isNaN(parseFloat(args[0]))) {
+                    const index = (parseFloat(args[0]));
                     if (index > 10 || index < 0) return msg.channel.send("1 leh 10 inkar thlang mai teh!");
                     else {
                         const song = searchResults[index - 1];
