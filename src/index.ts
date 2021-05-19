@@ -3,6 +3,8 @@ import * as fs from 'fs';
 
 export let queue: { title: string, url: string, dispatcher?: StreamDispatcher }[] = [];
 
+export let searchResults: { title: string, url: string }[] = []
+
 type Config = {
     volume: number,
     color: string,
