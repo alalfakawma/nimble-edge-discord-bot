@@ -1,7 +1,7 @@
 import ytdl from 'ytdl-core';
 import { search } from 'yt-search';
 import { Message, MessageEmbed } from 'discord.js';
-import { queue, neb } from '../index';
+import { queue, neb, searchResults } from '../index';
 import ytpl from 'ytpl';
 import { playYt } from '../util/playYt';
 
@@ -21,20 +21,30 @@ module.exports = {
         else if (args[0]) {
             // Argument is not a link
             if (!isURL.test(args[0])) {
-                const song: { title: string, url: string } = await new Promise((resolve, _rej) => {
-                    search(args.join(' '), (err, res) => {
-                        if (err) {
-                            return msg.channel.send("🛑 Diklo a awm meks, ti tha leh chhin rawh!");
-                        }
+                if (isNaN(parseFloat(args[0])) &&  searchResults.length) {
+                    const index = (parseFloat(args[0]) + 1); // Remember 0 index
+                    if (index > 10 || index < 0) return msg.channel.send("1 leh 10 inkar thlang mai teh!");
+                    else {
+                        const song = searchResults[index - 1];
+                        queue.push(song);
+                        if (queue.length > 1) msg.channel.send(embed.setDescription(`👍 **Added to queue:** ${song.title}`));
+                    }
+                } else {
+                    const song: { title: string, url: string } = await new Promise((resolve, _rej) => {
+                        search(args.join(' '), (err, res) => {
+                            if (err) {
+                                return msg.channel.send("🛑 Diklo a awm meks, ti tha leh chhin rawh!");
+                            }
 
-                        resolve({
-                            title: res.all[0].title,
-                            url: res.all[0].url,
+                            resolve({
+                                title: res.videos[0].title,
+                                url: res.videos[0].url,
+                            });
                         });
                     });
-                });
-                queue.push(song);
-                if (queue.length > 1) msg.channel.send(embed.setDescription(`👍 **Added to queue:** ${song.title}`));
+                    queue.push(song);
+                    if (queue.length > 1) msg.channel.send(embed.setDescription(`👍 **Added to queue:** ${song.title}`));
+                }
             } else {
                 // If the argument is a link
                 // First validate if the link is a playlist link or not
