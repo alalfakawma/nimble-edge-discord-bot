@@ -25,7 +25,7 @@ module.exports = {
                 for (let i = 0; i < 10; ++i) {
                     const video = results[i];
 
-                    embed.addField(`${(i + 1)} ${video.title}`, '');
+                    embed.addField('', `${(i + 1)} ${video.title}`);
 
                     searchResults.push({
                         title: video.title,
