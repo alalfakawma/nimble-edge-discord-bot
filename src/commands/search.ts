@@ -12,7 +12,11 @@ module.exports = {
 
         if (!args.length) msg.channel.send(embed.setDescription(`Search tur dah tel ta che! Mimawl!`));
         else {
-            search(q, (_err, res) => {
+            search(q, (err, res) => {
+                if (err) {
+                    return console.error(err);
+                }
+
                 embed.setTitle(`Search results for '${q}'`)
                     .setDescription('Type -play {number} to play. (results saved for 10 seconds)');
 
