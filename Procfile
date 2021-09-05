@@ -1,1 +1,1 @@
-worker: bin/start-stunnel npm run start
+worker: npm run start
